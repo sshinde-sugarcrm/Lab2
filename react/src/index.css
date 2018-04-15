@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  align-items:center;
+  font-family: sans-serif;
+    align-content: space-around;
+    text-align: center;
+}
+.btn{border-radius: 0;}
+.btn-md {
+  border-width: 0;
+  outline: none;
+  border-radius: 0;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+  cursor: pointer;
+}
+h3 {text-align: center;margin:40px;}
