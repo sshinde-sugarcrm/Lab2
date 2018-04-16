@@ -7,14 +7,21 @@ var kafka = require('./kafka/client');
 //var url = 'mongodb://localhost:27017/freelancer';
 
 var session = require('client-sessions');
-var url='mongodb://<SAISH SHINDE>:<$harwarI09>@ds117251.mlab.com:17251/freelancer'
+var url='mongodb://SAISH SHINDE:$harwarI09@ds117251.mlab.com:17251/freelancer'
 var expressSessions = require("express-session");
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
 });
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'hotmail',
+    auth: {
+        user: 'teevra.2016@outlook.com',
+        pass: 'Speedlabs09'
+    }
+});
 
 var dummy="dummy";
-
 var connection=mysql.createConnection({
     host:"localhost",
     user:"root",
@@ -662,10 +669,10 @@ router.post('/hire', function (req, res, next) {
         period : period
     }
 
-
+        var hired="";
     mongo.connect(function (db) {
         var coll = db.collection('projectlist');
-
+        var collect=db.collection('update');
         coll.findOne({'projectname': projectname}, function (err, resp) {
             if (err) {
                 res.json({
@@ -678,6 +685,31 @@ router.post('/hire', function (req, res, next) {
                 //     [],
                 //     {$set:{status:status}}
                 // )
+                collect.findOne({'name': bidder}, function (err, resp) {
+                    if (err) {
+                        res.json({
+                            status: 401
+                        });
+                    }
+                    if (resp) {
+                        console.log(resp.email);
+                        hired = resp.email;
+                    }
+                    var mailOptions = {
+                        from: 'teevra.2016@outlook.com',
+                        to: hired,
+                        subject: 'Sending Email using Node.js',
+                        text: 'Hi Sir, You are hired as the freelancer for this project'
+                    };
+
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    })
+                });
                 res.json({
                     status: 200,
                     value:resp,
@@ -691,5 +723,6 @@ router.post('/hire', function (req, res, next) {
             // }
         });
     });
+
 });
 module.exports = router;

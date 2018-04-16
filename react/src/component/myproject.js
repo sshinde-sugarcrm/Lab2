@@ -20,9 +20,11 @@ class myproject extends React.Component {
             bid: '',
             search:'',
             period:'',
+            currentPage:1,
             current:this.props.homes
         };
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     onInputChange(event){
         console.log("project name--->");
@@ -38,6 +40,11 @@ class myproject extends React.Component {
     {
         this.props.home();
     }
+    handleClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
 
     navigate()
     {
@@ -48,34 +55,62 @@ class myproject extends React.Component {
         {
             this.navigate();
         }
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.current.length / 4); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <li
+                    key={number}
+                    id={number}
+                    onClick={this.handleClick}
+                >
+                    {number}
+                </li>
+            );
+        });
+
+
+        const currentPage = this.state.currentPage;
+        const ProjectsPerPage=4;
+        const projects=this.state.current;
+
+        // Logic for displaying current todos
+        const indexOfLastProject = currentPage * ProjectsPerPage;
+        const indexOfFirstProject = indexOfLastProject - ProjectsPerPage;
+        const currentProject = projects.slice(indexOfFirstProject, indexOfLastProject);
+
         return (
             <div>
                 <Navbar color="faded" light expand="md">
                     <NavbarBrand href="/myproject"><img src={image} alt="FreeLancer App"/></NavbarBrand>
-                <Nav className="ml-auto" navbar>
-                    <input
-                    className="form-control"
-                    style={{width:400}}
-                    type="text"
-                    placeholder="Search Project using Technology Stack /Project name"
-                    value={this.state.search}
-                    onChange={(event) => {
+                    <Nav className="ml-auto" navbar>
+                        <input
+                            className="form-control"
+                            style={{width:400}}
+                            type="text"
+                            placeholder="Search Project using Technology Stack /Project name"
+                            value={this.state.search}
+                            onChange={(event) => {
 
-                        let newDisplay = this.props.homes.filter(project=>
-                            project.projectname.includes(event.target.value));
-                        this.setState({
-                            search:event.target.value,
-                            current: newDisplay
-                        });
-                    }}
-                />
-                    <NavItem>
-                        <NavLink href="/allproject"><Button color="primary">All Projects</Button></NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="/relevant"><Button color="primary">Relevant Projects</Button></NavLink>
-                    </NavItem>
-                </Nav>
+                                let newDisplay = this.props.homes.filter(project=>
+                                    project.projectname.includes(event.target.value));
+                                this.setState({
+                                    search:event.target.value,
+                                    current: newDisplay
+                                });
+                            }}
+                        />
+                        <NavItem>
+                            <NavLink href="/allproject"><Button color="primary">All Projects</Button></NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/relevant"><Button color="primary">Relevant Projects</Button></NavLink>
+                        </NavItem>
+                    </Nav>
                 </Navbar>
                 <Table>
                     <thead>
@@ -91,7 +126,9 @@ class myproject extends React.Component {
                     </thead>
                     <tbody>
                     {console.log(this.props.homes)}
-                    {this.state.current.map(row => {
+
+
+                    {currentProject.map(row => {
                         return(
                             <tr>
                                 <td key={row.projectname}>{row.projectname}</td>
@@ -126,6 +163,9 @@ class myproject extends React.Component {
                     })
                     };
                     </tbody>
+                    <div>
+                        {renderPageNumbers}
+                    </div>
                 </Table>
             </div>
         );

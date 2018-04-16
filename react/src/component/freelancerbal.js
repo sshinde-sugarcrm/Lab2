@@ -8,6 +8,7 @@ import {
     NavbarBrand,
 } from 'reactstrap';
 import image from './mainlogo.JPG';
+import PieChart from 'react-minimal-pie-chart';
 class freelancerbal extends React.Component {
 
     constructor(props) {
@@ -29,10 +30,9 @@ class freelancerbal extends React.Component {
                     <NavbarBrand href="/profile"><img src={image} alt="FreeLancer App"/></NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                 </Navbar>
-                <h1 align="center">Welcome to the Balance Page!!!</h1>
                 <div className="row justify-content-lg">
-                    <div className="col-lg-12" align="center">
-
+                    <div className="col-lg-6" align="center">
+                        <h1 align="center">Welcome to the Transaction Manager!!!</h1>
                         <div className="form-group">
                             <Button
                                 color="primary"
@@ -52,16 +52,27 @@ class freelancerbal extends React.Component {
                             value={this.state.withdraw}
                             onChange={(event) => {
                                 this.setState({
-                                    withdraw: event.target.value
+                                    withdraw: event.target.value,
                                 });
                             }}
                         />
                         <Button
                             color="primary"
                             type="button"
-                            onClick={() => this.props.withdraw(this.state)}>
+                            onClick={() => this.props.withdraw(this.state.withdraw)}>
                             Withdraw Balance
                         </Button>
+                        <p>
+                            Incoming Money: Brown
+                            Outgoing Money: Blue
+                        </p>
+                        <PieChart radius={25}
+                                  data={[
+                                      { value: this.props.balance, key: 1, color: '#c05100' },
+                                      { value: this.props.balance-this.state.withdraw, key: 2, color: '#46a0c1' }
+                                  ]}
+                        />
+
                     </div>
                     </div>
                 </div>

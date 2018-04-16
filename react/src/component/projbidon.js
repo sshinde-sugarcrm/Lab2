@@ -19,9 +19,11 @@ class allproject extends React.Component {
 
         this.state = {
             search:'',
-            current:this.props.projects
+            current:this.props.projects,
+            currentPage:1
         };
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     onInputChange(event){
         console.log("project name--->");
@@ -33,11 +35,41 @@ class allproject extends React.Component {
         });
         console.log(this.state);
     }
+
     componentWillMount()
     {
         this.props.projbidon();
     }
+    handleClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
     render() {
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.current.length / 4); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <li
+                    key={number}
+                    id={number}
+                    onClick={this.handleClick}
+                >
+                    {number}
+                </li>
+            );
+        });
+        const currentPage = this.state.currentPage;
+        const ProjectsPerPage=3;
+        const projects=this.state.current;
+
+        // Logic for displaying current todos
+        const indexOfLastProject = currentPage * ProjectsPerPage;
+        const indexOfFirstProject = indexOfLastProject - ProjectsPerPage;
+        const currentProject = projects.slice(indexOfFirstProject, indexOfLastProject);
         return (
             <div>
                 <Navbar color="faded" light expand="md">
@@ -67,13 +99,13 @@ class allproject extends React.Component {
                         <th>Project Names</th>
                         <th>Average Bid</th>
                         <th>Freelancer Name</th>
-                        <th>Project Completion Date</th>
+                        <th>Project Completion Days</th>
                         <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     {console.log(this.props.projects)}
-                    {this.state.current.map(row => {
+                    {currentProject.map(row => {
                         return(
                             <tr>
                                 <td key={row.projectname}>{row.projectname}</td>
@@ -86,7 +118,11 @@ class allproject extends React.Component {
                     })
                     };
                     </tbody>
+                    <div>
+                        {renderPageNumbers}
+                    </div>
                 </Table>
+
                 <NavItem>
                     <NavLink href="/myproject"><Button color="warning">Return to Home</Button></NavLink>
                 </NavItem>

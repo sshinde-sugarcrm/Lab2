@@ -18,9 +18,11 @@ class allproject extends React.Component {
 
         this.state = {
             search:'',
+            currentPage:1,
             current:this.props.homes
         };
         this.onInputChange = this.onInputChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     onInputChange(event){
         console.log("project name--->");
@@ -36,7 +38,36 @@ class allproject extends React.Component {
     {
         this.props.allproj();
     }
+    handleClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
     render() {
+        const currentPage = this.state.currentPage;
+        const ProjectsPerPage=4;
+        const projects=this.state.current;
+
+        // Logic for displaying current todos
+        const indexOfLastProject = currentPage * ProjectsPerPage;
+        const indexOfFirstProject = indexOfLastProject - ProjectsPerPage;
+        const currentProject = projects.slice(indexOfFirstProject, indexOfLastProject);
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.current.length / 4); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <li
+                    key={number}
+                    id={number}
+                    onClick={this.handleClick}
+                >
+                    {number}
+                </li>
+            );
+        });
         return (
             <div>
 
@@ -73,7 +104,7 @@ class allproject extends React.Component {
                     </thead>
                     <tbody>
                     {console.log(this.props.homes)}
-                    {this.state.current.map(row => {
+                    {currentProject.map(row => {
                         return(
                             <tr>
                                 <td key={row.projectname}>{row.projectname}</td>
@@ -86,6 +117,7 @@ class allproject extends React.Component {
                     })
                     };
                     </tbody>
+                    {renderPageNumbers}
                 </Table>
                 <NavItem>
                     <NavLink href="/myproject"><Button color="warning">Return to Home</Button></NavLink>

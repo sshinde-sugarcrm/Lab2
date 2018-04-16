@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {actionpay} from "../actions/loginactions";
 import history from "./history";
-import { Card, CardTitle} from 'reactstrap';
+import { CardTitle} from 'reactstrap';
 import {Button
 } from 'reactstrap';
 

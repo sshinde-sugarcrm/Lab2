@@ -11,6 +11,7 @@ import {
  } from 'reactstrap';
 import {connect} from 'react-redux';
 import history from "./history";
+import { Button } from 'reactstrap';
 import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 const items = [
 
@@ -100,11 +101,14 @@ class Header extends Component {
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
+
                             <NavItem>
-                                <NavLink href="/login">Login</NavLink>
+                                <NavLink href="/login"><Button color="success">Login</Button></NavLink>
                             </NavItem>
+
+
                             <NavItem>
-                                <NavLink href="/Signup">SignUp</NavLink>
+                                <NavLink href="/Signup"><Button color="success">Sign Up</Button></NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

@@ -70,7 +70,7 @@ class profile extends React.Component {
 
 
                         <NavItem>
-                            <NavLink href="/myproject"><Button color="primary">My Project</Button></NavLink>
+                            <NavLink href="/myproject"><Button color="primary">Home</Button></NavLink>
                         </NavItem>
 
                         <NavItem>

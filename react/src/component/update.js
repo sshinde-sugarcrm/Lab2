@@ -16,7 +16,8 @@ class update extends Component {
             email: '',
             phones: '',
             aboutme: '',
-            skills: ''
+            skills: '',
+            File:''
         };
     }
         navigate()
@@ -94,6 +95,19 @@ class update extends Component {
                                 />
                             </div>
 
+                            <div className="form-group">
+                                <p>Pic Upload</p>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    value={this.state.File}
+                                    onChange={(event) => {
+                                        this.setState({
+                                            File: event.target.value
+                                        });
+                                    }}
+                                />
+                            </div>
                             <div className="form-group">
                                 <input
                                     className="form-control"

@@ -7,6 +7,7 @@ import {
     NavLink,
 } from 'reactstrap';
 import { Alert } from 'reactstrap';
+//import image from './mainlogo.JPG';
 class projectdetails extends React.Component {
 
     constructor(props) {
@@ -22,10 +23,29 @@ class projectdetails extends React.Component {
         this.props.details();
     }
 
+
+    //  sortOrder=(event,str)=>
+    // {
+    // event.preventDefault();
+    //      if(str==="asc")
+    //      {
+    //         this.props.allbids.sort(function(a,b)
+    //          {return (a.Bids.bid-a.Bids.bid)});
+    //      }
+    //     else{
+    //          this.props.allbids.sort(function(a,b){
+    //             return (a.Bids.bid-a.Bids.bid)});
+    //         }
+    //  }
+
     render(){
         return (
             <div>
                 {this.props.status !== 200?<div>
+                        {/*<Button id="asc"*/}
+                                {/*onClick={(event) => this.sortOrder(event, "asc")}>Sort Ascending</Button>*/}
+                        {/*<Button id="asc"*/}
+                                {/*onClick={(event) => this.sortOrder(event, "desc")}>Sort Descending</Button>*/}
                         <Table  ref='table'>
                             <thead>
                             <tr>
@@ -73,16 +93,20 @@ class projectdetails extends React.Component {
                                 </Alert>
                                 <div className="form-group">
                                     <p>File Download</p>
-                                    <input
-                                        className="form-control"
-                                        type="file"
-                                        value={this.state.File}
-                                        onChange={(event) => {
-                                            this.setState({
-                                                File: event.target.value
-                                            });
-                                        }}
-                                    />
+
+                                    <a href="./mainlogo.JPG"
+                                       download="">
+                                        Download</a>
+                                    {/*<input*/}
+                                        {/*className="form-control"*/}
+                                        {/*type="file"*/}
+                                        {/*value={this.state.File}*/}
+                                        {/*onChange={(event) => {*/}
+                                            {/*this.setState({*/}
+                                                {/*File: event.target.value*/}
+                                            {/*});*/}
+                                        {/*}}*/}
+                                    {/*/>*/}
                                 </div>
                         <NavItem>
                             <NavLink href="/Payment"><Button color="success">Make Payment</Button></NavLink>
