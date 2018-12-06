@@ -7,7 +7,7 @@ var kafka = require('./kafka/client');
 //var url = 'mongodb://localhost:27017/freelancer';
 
 var session = require('client-sessions');
-var url='mongodb://SAISH SHINDE:$harwarI09@ds117251.mlab.com:17251/freelancer'
+var url='mongodb://SAI:@ds117251.mlab.com:17251/freelancer'
 var expressSessions = require("express-session");
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
@@ -16,8 +16,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'hotmail',
     auth: {
-        user: 'teevra.2016@outlook.com',
-        pass: 'Speedlabs09'
+        user: '2016@outlook.com',
+        pass: ''
     }
 });
 
