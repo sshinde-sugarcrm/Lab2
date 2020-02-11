@@ -25,7 +25,7 @@ var dummy="dummy";
 var connection=mysql.createConnection({
     host:"localhost",
     user:"root",
-    password:"saish09",
+    password:"spidey!",
     database:"Test"
 });
 
