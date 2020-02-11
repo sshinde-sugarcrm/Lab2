@@ -1,4 +1,4 @@
-const api = 'http://ec2-35-171-16-174.compute-1.amazonaws.com:3000'
+const api = 'http://something.com:3000'
 
 const headers = {
     'Accept': 'application/json'
